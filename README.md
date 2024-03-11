@@ -1,3 +1,7 @@
 # Where's Waldo Client
 
-TODO
+Links:
+
+<!-- - [Specs](./Specs.md) -->
+
+- [Todos](./Toods.md)
