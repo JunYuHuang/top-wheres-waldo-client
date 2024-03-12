@@ -12,14 +12,14 @@
   - [ ] `utilsLib`
 - [x] Create UI elements with dummy data and state
   - [x] `Header`
-  - [x] `MissingCharacters`
+  - [x] `CharactersList`
   - [x] `Stopwatch`
   - [x] `PhotoMap`
   - [x] `ScoreForm`
   - [x] `Scoreboard`
 - [ ] Add functionality to UI elements with real data and state
-  - [ ] `Header`
-  - [ ] `MissingCharacters`
+  - [x] `Header`
+  - [x] `CharactersList`
   - [ ] `Stopwatch`
   - [ ] `PhotoMap`
   - [ ] `ScoreForm`

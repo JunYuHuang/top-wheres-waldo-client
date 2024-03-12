@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { CharactersList } from "./components/CharactersList";
 
 function App() {
   const [photoObjects, setPhotoObjects] = useState([
@@ -23,6 +24,9 @@ function App() {
     id: 1,
     image_url: "http://localhost:3000/photo_1.png",
   });
+  const [foundPhotoObjectIds, setFoundPhotoObjectIds] = useState(
+    new Set<number>([2])
+  );
   const [scores, setScores] = useState([
     {
       id: 2,
@@ -40,24 +44,6 @@ function App() {
       run_length_in_ms: 12369420,
     },
   ]);
-
-  const photoObjectList = photoObjects.map((photoObject) => {
-    return (
-      <li
-        key={photoObject.id}
-        className="flex flex-row items-center gap-x-2 max-w-fit"
-      >
-        <div className="w-12 h-12 overflow-hidden bg-gray-200 flex flex-col justify-center rounded-2xl">
-          <img
-            src={photoObject.image_url}
-            alt={`A photo of the character ${photoObject.name}`}
-            className="max-w-full max-h-full object-contain object-top mx-auto"
-          />
-        </div>
-        <span className="text-xl">{photoObject.name}</span>
-      </li>
-    );
-  });
 
   const targetList = photoObjects.map((photoObject) => {
     return (
@@ -87,13 +73,9 @@ function App() {
         <p className="text-xl mb-4">
           Find and click on the missing characters in the photo!
         </p>
-        {/* missing characters */}
-        <div className="mb-4">
-          <h2 className="text-2xl mb-4">Missing Character(s):</h2>
-          <ul className="flex flex-col gap-y-3">{photoObjectList}</ul>
-        </div>
+        <CharactersList {...{ photoObjects, foundPhotoObjectIds }} />
         {/* stopwatch */}
-        <div className="text-2xl mb-4">Time: 00:05</div>
+        {/* <div className="text-2xl mb-4">Time: 00:05</div> */}
         {/* TODO: photo map */}
         <div className="relative w-full rounded-2xl mb-4 overflow-hidden">
           <img
@@ -182,7 +164,7 @@ function App() {
           </div>
         </dialog>
         {/* TODO: scoreboard */}
-        <div className="">
+        {/* <div className="">
           <h2 className="text-2xl">Fastest Runs</h2>
           <table className="table-auto border-spacing-1">
             <thead>
@@ -193,7 +175,7 @@ function App() {
             </thead>
             <tbody>{scoreRows}</tbody>
           </table>
-        </div>
+        </div> */}
       </main>
     </div>
   );
