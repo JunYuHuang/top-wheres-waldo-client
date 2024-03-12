@@ -66,7 +66,7 @@ Table Of Contents:
 - in-house libraries
   - `serverAPILib`: helper library for making AJAX calls to the backend to get JSON data for the client with the following
   - `stopwatchLib`: helper library for initializing, starting, and pausing the displayed stopwatch
-  - `utils`: library of miscellaneous utility helper functions with the following functions:
+  - `utilsLib`: library of miscellaneous utility helper functions with the following functions:
     - `scaleUpPosition()`
     - `scaleDownPosition()`
 - functions / event handlers

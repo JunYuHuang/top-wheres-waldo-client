@@ -3,5 +3,5 @@
 Links:
 
 - [Planning](./Planning.md)
-- [Todos](./Toods.md)
+- [Todos](./Todos.md)
 <!-- - [Specs](./Specs.md) -->
