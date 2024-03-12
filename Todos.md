@@ -1,7 +1,25 @@
 # Todos
 
-- [ ] [Todo](#todo)
-
-## Todo
-
-- [ ] TODO
+- [ ] Install library dependencies
+  - [ ] Tailwind
+- [ ] Config library dependencies
+  - [ ] Tailwind
+- [ ] Create in-house libraries
+  - [ ] `serverAPILib`
+  - [ ] `stopwatchLib`
+  - [ ] `utilsLib`
+- [ ] Create UI elements with dummy data and state
+  - [ ] `Header`
+  - [ ] `MissingCharacters`
+  - [ ] `Stopwatch`
+  - [ ] `PhotoMap`
+  - [ ] `ScoreForm`
+  - [ ] `Scoreboard`
+- [ ] Add functionality to UI elements with real data and state
+  - [ ] `Header`
+  - [ ] `MissingCharacters`
+  - [ ] `Stopwatch`
+  - [ ] `PhotoMap`
+  - [ ] `ScoreForm`
+  - [ ] `Scoreboard`
+- [ ] Deploy to GitHub Pages
