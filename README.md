@@ -2,6 +2,6 @@
 
 Links:
 
-<!-- - [Specs](./Specs.md) -->
-
+- [Planning](./Planning.md)
 - [Todos](./Toods.md)
+<!-- - [Specs](./Specs.md) -->
