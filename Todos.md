@@ -11,9 +11,9 @@
   - [ ] `stopwatchLib`
   - [ ] `utilsLib`
 - [ ] Create UI elements with dummy data and state
-  - [ ] `Header`
-  - [ ] `MissingCharacters`
-  - [ ] `Stopwatch`
+  - [x] `Header`
+  - [x] `MissingCharacters`
+  - [x] `Stopwatch`
   - [ ] `PhotoMap`
   - [ ] `ScoreForm`
   - [ ] `Scoreboard`
