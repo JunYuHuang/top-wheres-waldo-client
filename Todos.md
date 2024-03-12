@@ -10,13 +10,13 @@
   - [ ] `serverAPILib`
   - [ ] `stopwatchLib`
   - [ ] `utilsLib`
-- [ ] Create UI elements with dummy data and state
+- [x] Create UI elements with dummy data and state
   - [x] `Header`
   - [x] `MissingCharacters`
   - [x] `Stopwatch`
-  - [ ] `PhotoMap`
-  - [ ] `ScoreForm`
-  - [ ] `Scoreboard`
+  - [x] `PhotoMap`
+  - [x] `ScoreForm`
+  - [x] `Scoreboard`
 - [ ] Add functionality to UI elements with real data and state
   - [ ] `Header`
   - [ ] `MissingCharacters`
