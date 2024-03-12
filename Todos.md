@@ -1,9 +1,11 @@
 # Todos
 
-- [ ] Install library dependencies
-  - [ ] Tailwind
-- [ ] Config library dependencies
-  - [ ] Tailwind
+- [x] Install library dependencies
+  - [x] Tailwind
+  - [x] Luxon (for time formatting)
+- [x] Config library dependencies
+  - [x] Tailwind
+  - [x] Luxon
 - [ ] Create in-house libraries
   - [ ] `serverAPILib`
   - [ ] `stopwatchLib`
