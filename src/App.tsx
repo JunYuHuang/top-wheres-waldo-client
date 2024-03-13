@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { getPhotoObjects, getPhoto, getScores } from "./lib/serverAPILib";
 import { CharactersList } from "./components/CharactersList";
+import { Scoreboard } from "./components/Scoreboard";
 
 function App() {
   const [photoObjects, setPhotoObjects] = useState<any[]>([]);
@@ -32,15 +33,6 @@ function App() {
     });
     setFoundPhotoObjectIds(new Set([]));
   }, []);
-
-  const scoreRows = scores.map((score) => {
-    return (
-      <tr key={score.id} className="">
-        <td className="text-xl pr-6 py-1">{score.run_length_in_ms}</td>
-        <td className="text-xl pr-6 py-1">{score.player_name}</td>
-      </tr>
-    );
-  });
 
   return (
     <div className="min-h-screen">
@@ -141,19 +133,7 @@ function App() {
             </form>
           </div>
         </dialog>
-        {/* scoreboard */}
-        <div className="">
-          <h2 className="text-2xl">Fastest Runs</h2>
-          <table className="table-auto border-spacing-1">
-            <thead>
-              <tr>
-                <th className="text-xl text-left pr-6 py-1">Time</th>
-                <th className="text-xl text-left pr-6 py-1">Player</th>
-              </tr>
-            </thead>
-            <tbody>{scoreRows}</tbody>
-          </table>
-        </div>
+        <Scoreboard {...{ scores }} />
       </main>
     </div>
   );
