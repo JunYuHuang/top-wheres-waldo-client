@@ -28,5 +28,5 @@
   - [ ] `Stopwatch`
   - [ ] `PhotoMap`
   - [ ] `ScoreForm`
-  - [ ] `Scoreboard`
+  - [x] `Scoreboard`
 - [ ] Deploy to GitHub Pages
