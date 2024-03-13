@@ -32,4 +32,6 @@
   - [ ] `PhotoMap`
   - [ ] `ScoreForm`
   - [x] `Scoreboard`
+- [ ] Test the app
 - [ ] Deploy to GitHub Pages
+- [ ] Optional: Create and update favicon
