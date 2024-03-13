@@ -1,50 +1,16 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState, useEffect } from "react";
-// import { getPhotoObjects } from "./lib/serverAPILib";
+import { getPhotoObjects, getPhoto, getScores } from "./lib/serverAPILib";
 import { CharactersList } from "./components/CharactersList";
 
 function App() {
-  const [photoObjects, setPhotoObjects] = useState([
-    {
-      id: 1,
-      name: "Waldo",
-      image_url: "http://localhost:3000/object_waldo.png",
-    },
-    {
-      id: 2,
-      name: "Wenda",
-      image_url: "http://localhost:3000/object_wenda.png",
-    },
-    {
-      id: 3,
-      name: "Woof (His Tail)",
-      image_url: "http://localhost:3000/object_woof.png",
-    },
-  ]);
-  const [photo, setPhoto] = useState({
-    id: 1,
-    image_url: "http://localhost:3000/photo_1.png",
-  });
+  const [photoObjects, setPhotoObjects] = useState<any[]>([]);
+  const [photo, setPhoto] = useState<any>({});
   const [foundPhotoObjectIds, setFoundPhotoObjectIds] = useState(
-    new Set<number>([2])
+    new Set<number>()
   );
-  const [scores, setScores] = useState([
-    {
-      id: 2,
-      player_name: "h_a_c_k_e_r_m_a_n",
-      run_length_in_ms: 1,
-    },
-    {
-      id: 3,
-      player_name: "BRUH.wav",
-      run_length_in_ms: 16812,
-    },
-    {
-      id: 1,
-      player_name: "GamerGuy99",
-      run_length_in_ms: 12369420,
-    },
-  ]);
+  const [scores, setScores] = useState<any[]>([]);
 
   const targetList = photoObjects.map((photoObject) => {
     return (
@@ -57,12 +23,14 @@ function App() {
   });
 
   useEffect(() => {
-    // TODO - to fix
-    // const loadData = async () => {
-    //   const photoObjectData = await getPhotoObjects();
-    //   setPhotoObjects(photoObjectData);
-    // };
-    // loadData();
+    const ajaxCalls = [getPhotoObjects(), getPhoto(), getScores()];
+    Promise.all(ajaxCalls).then((responses) => {
+      const [photoObjects, photo, scores] = responses;
+      setPhotoObjects(photoObjects);
+      setPhoto(photo);
+      setScores(scores);
+    });
+    setFoundPhotoObjectIds(new Set([]));
   }, []);
 
   const scoreRows = scores.map((score) => {
@@ -173,8 +141,8 @@ function App() {
             </form>
           </div>
         </dialog>
-        {/* TODO: scoreboard */}
-        {/* <div className="">
+        {/* scoreboard */}
+        <div className="">
           <h2 className="text-2xl">Fastest Runs</h2>
           <table className="table-auto border-spacing-1">
             <thead>
@@ -185,7 +153,7 @@ function App() {
             </thead>
             <tbody>{scoreRows}</tbody>
           </table>
-        </div> */}
+        </div>
       </main>
     </div>
   );
