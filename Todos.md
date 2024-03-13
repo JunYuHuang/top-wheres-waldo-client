@@ -8,6 +8,11 @@
   - [x] Luxon
 - [ ] Create in-house libraries
   - [ ] `serverAPILib`
+    - [ ] `getPhotoObjects()`
+    - [ ] `getPhoto()`
+    - [ ] `getScores()`
+    - [ ] `createGame()`
+    - [ ] `updateGame()`
   - [ ] `stopwatchLib`
   - [ ] `utilsLib`
 - [x] Create UI elements with dummy data and state

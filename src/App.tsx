@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState, useEffect } from "react";
+// import { getPhotoObjects } from "./lib/serverAPILib";
 import { CharactersList } from "./components/CharactersList";
 
 function App() {
@@ -54,6 +55,15 @@ function App() {
       </li>
     );
   });
+
+  useEffect(() => {
+    // TODO - to fix
+    // const loadData = async () => {
+    //   const photoObjectData = await getPhotoObjects();
+    //   setPhotoObjects(photoObjectData);
+    // };
+    // loadData();
+  }, []);
 
   const scoreRows = scores.map((score) => {
     return (
