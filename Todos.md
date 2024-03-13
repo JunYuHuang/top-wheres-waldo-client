@@ -8,9 +8,9 @@
   - [x] Luxon
 - [ ] Create in-house libraries
   - [ ] `serverAPILib`
-    - [ ] `getPhotoObjects()`
-    - [ ] `getPhoto()`
-    - [ ] `getScores()`
+    - [x] `getPhotoObjects()`
+    - [x] `getPhoto()`
+    - [x] `getScores()`
     - [ ] `createGame()`
     - [ ] `updateGame()`
   - [ ] `stopwatchLib`
