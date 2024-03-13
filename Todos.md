@@ -16,6 +16,7 @@
     - [x] `startGame()`
     - [x] `updateGame()`
     - [x] `deleteGame()`
+    - [x] Update AJAX calls to save and send cookie from server for HTTP requests that involve the game session
   - [ ] `stopwatchLib`
   - [ ] `utilsLib`
 - [x] Create UI elements with dummy data and state

@@ -30,7 +30,7 @@ async function getPhoto(photoId = DEFAULT_PHOTO_ID) {
     const data = await res.json();
     return data;
   } catch (error) {
-    console.error("Error getting photo objects:", error);
+    console.error("Error getting photo:", error);
     return { id: -1, image_url: "hehexd" };
   }
 }
@@ -47,7 +47,7 @@ async function getScores(photoId = DEFAULT_PHOTO_ID) {
     const data = await res.json();
     return data;
   } catch (error) {
-    console.error("Error getting photo objects:", error);
+    console.error("Error getting scores:", error);
     return [];
   }
 }
@@ -57,6 +57,10 @@ async function createScore(playerName: string, photoId = DEFAULT_PHOTO_ID) {
   const options: RequestInit = {
     method: "POST",
     mode: "cors",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    credentials: "include",
     body: JSON.stringify({
       player_name: playerName
     })
@@ -67,7 +71,7 @@ async function createScore(playerName: string, photoId = DEFAULT_PHOTO_ID) {
     const data = await res.json();
     return data;
   } catch (error) {
-    console.error("Error getting photo objects:", error);
+    console.error("Error creating score:", error);
     return {};
   }
 }
@@ -77,6 +81,10 @@ async function createGame(photoId = DEFAULT_PHOTO_ID) {
   const options: RequestInit = {
     method: "POST",
     mode: "cors",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    credentials: "include",
     body: JSON.stringify({
       photo_id: photoId
     })
@@ -87,24 +95,27 @@ async function createGame(photoId = DEFAULT_PHOTO_ID) {
     const data = await res.json();
     return data;
   } catch (error) {
-    console.error("Error getting photo objects:", error);
+    console.error("Error creating game:", error);
     return {};
   }
 }
 
 interface startGameParams {
-  didUpdateStart: boolean;
   timestampInMS: number;
 }
 
 async function startGame(params: startGameParams) {
-  const { didUpdateStart, timestampInMS } = params;
+  const { timestampInMS } = params;
   const url = `${SERVER_BASE_URL}/games/lol`;
   const options: RequestInit = {
     method: "PATCH",
     mode: "cors",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    credentials: "include",
     body: JSON.stringify({
-      did_update_start: didUpdateStart,
+      did_update_start: false,
       timestamp_in_ms: timestampInMS
     })
   };
@@ -114,7 +125,7 @@ async function startGame(params: startGameParams) {
     const data = await res.json();
     return data;
   } catch (error) {
-    console.error("Error getting photo objects:", error);
+    console.error("Error starting game:", error);
     return {};
   }
 }
@@ -132,6 +143,10 @@ async function updateGame(params: updateGameParams) {
   const options: RequestInit = {
     method: "PATCH",
     mode: "cors",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    credentials: "include",
     body: JSON.stringify({
       timestamp_in_ms: timestampInMS,
       did_update_start: true,
@@ -146,7 +161,7 @@ async function updateGame(params: updateGameParams) {
     const data = await res.json();
     return data;
   } catch (error) {
-    console.error("Error getting photo objects:", error);
+    console.error("Error updating game:", error);
     return {};
   }
 }
@@ -156,6 +171,7 @@ async function deleteGame() {
   const options: RequestInit = {
     method: "DELETE",
     mode: "cors",
+    credentials: "include",
   };
   try {
     const res = await fetch(url, options);
@@ -163,7 +179,7 @@ async function deleteGame() {
     const data = await res.json();
     return data;
   } catch (error) {
-    console.error("Error getting photo objects:", error);
+    console.error("Error deleting game:", error);
     return {};
   }
 }
