@@ -7,12 +7,15 @@
   - [x] Tailwind
   - [x] Luxon
 - [ ] Create in-house libraries
-  - [ ] `serverAPILib`
+  - [x] `serverAPILib`
     - [x] `getPhotoObjects()`
     - [x] `getPhoto()`
     - [x] `getScores()`
-    - [ ] `createGame()`
-    - [ ] `updateGame()`
+    - [x] `createScore()`
+    - [x] `createGame()`
+    - [x] `startGame()`
+    - [x] `updateGame()`
+    - [x] `deleteGame()`
   - [ ] `stopwatchLib`
   - [ ] `utilsLib`
 - [x] Create UI elements with dummy data and state
