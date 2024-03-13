@@ -1,13 +1,22 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState, useEffect } from "react";
-import { getPhotoObjects, getPhoto, getScores } from "./lib/serverAPILib";
+import {
+  getPhotoObjects,
+  getPhoto,
+  getScores,
+  deleteGame,
+  createGame,
+  startGame,
+} from "./lib/serverAPILib";
 import { CharactersList } from "./components/CharactersList";
 import { PhotoMap } from "./components/PhotoMap";
 import { Scoreboard } from "./components/Scoreboard";
 import { ScoreForm } from "./components/ScoreForm";
 
 function App() {
+  const [game, setGame] = useState<any>({});
+  const [loadedTimestamp, setLoadedTimestamp] = useState(0);
   const [photoObjects, setPhotoObjects] = useState<any[]>([]);
   const [photo, setPhoto] = useState<any>({});
   const [foundPhotoObjectIds, setFoundPhotoObjectIds] = useState(
@@ -15,16 +24,68 @@ function App() {
   );
   const [scores, setScores] = useState<any[]>([]);
 
+  // Log the state as it changes
   useEffect(() => {
+    console.log(
+      `State @ ${new Date(Date.now()).toISOString()}`,
+      `\n> Game: \n`,
+      game,
+      `\n> loadedTimestamp: \n`,
+      loadedTimestamp,
+      `\n> photoObjects: \n`,
+      photoObjects,
+      `\n> photo: \n`,
+      photo,
+      `\n> foundPhotoObjectIds: \n`,
+      foundPhotoObjectIds,
+      `\n> Scores: \n:`,
+      scores
+    );
+  }, [game, loadedTimestamp, photoObjects, photo, foundPhotoObjectIds, scores]);
+
+  /*
+    - Reset the game session
+    - Create a new game session
+  */
+  useEffect(() => {
+    deleteGame().then(() => {
+      createGame().then((gameData) => {
+        setGame(gameData);
+        setFoundPhotoObjectIds(new Set(gameData.found_object_ids));
+      });
+    });
+  }, []);
+
+  /*
+    - Load initial game assets
+  */
+  useEffect(() => {
+    if (Object.keys(game).length === 0) return;
+    if (game.did_update_start === true) return;
+
     const ajaxCalls = [getPhotoObjects(), getPhoto(), getScores()];
     Promise.all(ajaxCalls).then((responses) => {
       const [photoObjects, photo, scores] = responses;
       setPhotoObjects(photoObjects);
       setPhoto(photo);
       setScores(scores);
+      setLoadedTimestamp(Date.now());
     });
-    setFoundPhotoObjectIds(new Set([]));
-  }, []);
+  }, [game]);
+
+  /*
+    - Update the game session's start time after assets load
+  */
+  useEffect(() => {
+    if (photoObjects.length === 0) return;
+    if (Object.keys(photo).length === 0) return;
+    if (loadedTimestamp === 0) return;
+
+    const startGameParams = { timestampInMS: loadedTimestamp };
+    startGame(startGameParams).then((gameData) => {
+      setGame(gameData);
+    });
+  }, [photoObjects, photo, loadedTimestamp]);
 
   return (
     <div className="min-h-screen">
