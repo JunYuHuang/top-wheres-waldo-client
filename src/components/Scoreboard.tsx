@@ -7,7 +7,7 @@ interface ScoreboardProps {
   }[];
 }
 
-export function Scoreboard({ scores }: ScoreboardProps) {
+export default function Scoreboard({ scores }: ScoreboardProps) {
   const scoreRows = scores.map((score) => {
     return (
       <tr key={score.id} className="">

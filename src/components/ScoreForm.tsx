@@ -1,4 +1,4 @@
-export function ScoreForm() {
+export default function ScoreForm() {
   return (
     <dialog
       className="bg-gray-200/90 absolute w-full h-full top-0 left-0"

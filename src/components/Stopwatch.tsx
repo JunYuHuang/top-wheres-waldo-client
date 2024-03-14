@@ -10,7 +10,7 @@ interface StopwatchProps {
   isDebugMode: boolean;
 }
 
-export function Stopwatch({
+export default function Stopwatch({
   shownElapsedTimeInMS,
   start,
   stop,

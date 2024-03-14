@@ -34,7 +34,7 @@ interface PhotoMapProps {
   setGame: React.Dispatch<any>;
 }
 
-export function PhotoMap({
+export default function PhotoMap({
   photo,
   photoObjects,
   foundPhotoObjectIds,

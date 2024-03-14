@@ -7,7 +7,7 @@ interface CharactersListProps {
   foundPhotoObjectIds: Set<number>;
 }
 
-export function CharactersList({
+export default function CharactersList({
   photoObjects,
   foundPhotoObjectIds,
 }: CharactersListProps) {

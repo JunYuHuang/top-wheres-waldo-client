@@ -10,11 +10,11 @@ import {
   startGame,
 } from "./lib/serverAPILib";
 import useStopwatch from "./lib/useStopwatch";
-import { CharactersList } from "./components/CharactersList";
-import { PhotoMap } from "./components/PhotoMap";
-import { Scoreboard } from "./components/Scoreboard";
-import { ScoreForm } from "./components/ScoreForm";
-import { Stopwatch } from "./components/Stopwatch";
+import CharactersList from "./components/CharactersList";
+import PhotoMap from "./components/PhotoMap";
+import Scoreboard from "./components/Scoreboard";
+import ScoreForm from "./components/ScoreForm";
+import Stopwatch from "./components/Stopwatch";
 
 function App() {
   const [game, setGame] = useState<any>({});
