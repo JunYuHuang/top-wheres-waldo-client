@@ -30,7 +30,11 @@
   - [x] `Header`
   - [x] `CharactersList`
   - [ ] `Stopwatch`
-  - [ ] `PhotoMap`
+  - [x] `PhotoMap`
+    - [ ] Optional: Dynamically position the list of target buttons so that they are never visually off-screen
+      - [ ] Target buttons' leftmost position should be in the same vertical (y) position as the target box's left border when the target box is in the left side of the photo
+      - [ ] Target buttons' rightmost position should be in the same vertical (y) position as the target box's right border when the target box is in the right side of the photo
+    - [ ] Optional: Allow photo map to scale up beyond its original dimensions (need a `scaleDownPosition()` function)
   - [ ] `ScoreForm`
   - [x] `Scoreboard`
 - [ ] Test the app

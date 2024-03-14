@@ -27,7 +27,7 @@ function App() {
   // Log the state as it changes
   useEffect(() => {
     console.log(
-      `State @ ${new Date(Date.now()).toISOString()}`,
+      `App: State @ ${new Date(Date.now()).toISOString()}`,
       `\n> Game: \n`,
       game,
       `\n> loadedTimestamp: \n`,
@@ -90,7 +90,7 @@ function App() {
   return (
     <div className="min-h-screen">
       {/* container */}
-      <main className="bg-white min-h-screen max-w-screen-xl mx-auto px-8 py-8">
+      <main className="bg-white min-h-screen max-w-screen-xl mx-auto px-4 py-4 sm:p-16">
         {/* header */}
         <h1 className="text-4xl mb-4">Where's Waldo?</h1>
         <p className="text-xl mb-4">
@@ -99,7 +99,15 @@ function App() {
         <CharactersList {...{ photoObjects, foundPhotoObjectIds }} />
         {/* stopwatch */}
         {/* <div className="text-2xl mb-4">Time: 00:05</div> */}
-        <PhotoMap {...{ photo, photoObjects }} />
+        <PhotoMap
+          {...{
+            photo,
+            photoObjects,
+            foundPhotoObjectIds,
+            setFoundPhotoObjectIds,
+            setGame,
+          }}
+        />
         <ScoreForm />
         <Scoreboard {...{ scores }} />
       </main>

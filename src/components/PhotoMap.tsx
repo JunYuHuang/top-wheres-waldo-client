@@ -3,9 +3,22 @@
 import React, { useState, useEffect } from "react";
 import { updateGame } from "../lib/serverAPILib";
 
-// TODO
-// - `scaleUpPosition()`
-// - `scaledownPosition()`
+interface scaleUpPositionArgs {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+  originalWidth: number;
+  originalHeight: number;
+}
+
+function scaleUpPosition(args: scaleUpPositionArgs) {
+  const { x, y, width, height, originalWidth, originalHeight } = args;
+  return {
+    x: Math.round(x * (originalWidth / width)),
+    y: Math.round(y * (originalHeight / height)),
+  };
+}
 
 interface PhotoMapProps {
   photo: {
@@ -18,10 +31,17 @@ interface PhotoMapProps {
     image_url: string;
   }[];
   foundPhotoObjectIds: Set<number>;
+  setFoundPhotoObjectIds: React.Dispatch<any>;
   setGame: React.Dispatch<any>;
 }
 
-export function PhotoMap({ photo, photoObjects }: PhotoMapProps) {
+export function PhotoMap({
+  photo,
+  photoObjects,
+  foundPhotoObjectIds,
+  setFoundPhotoObjectIds,
+  setGame,
+}: PhotoMapProps) {
   const [originalPhotoSize, setOriginalPhotoSize] = useState<any>({
     width: 1,
     height: 1,
@@ -38,14 +58,24 @@ export function PhotoMap({ photo, photoObjects }: PhotoMapProps) {
 
   // Log state changes
   useEffect(() => {
+    const scaledTargetPosition = scaleUpPosition({
+      x: targetPosition.x,
+      y: targetPosition.y,
+      width: photoSize.width,
+      height: photoSize.height,
+      originalWidth: originalPhotoSize.width,
+      originalHeight: originalPhotoSize.height,
+    });
     console.log(
-      `State @ ${new Date(Date.now()).toISOString()}`,
+      `PhotoMap: State @ ${new Date(Date.now()).toISOString()}`,
       `\n> OriginalPhotoSize: \n`,
       originalPhotoSize,
       `\n> photoSize: \n`,
       photoSize,
       `\n> targetPosition: \n`,
       targetPosition,
+      `\n> scaledTargetPosition: \n`,
+      scaledTargetPosition,
       `\n> isTargetVisible: \n`,
       isTargetVisible
     );
@@ -63,10 +93,6 @@ export function PhotoMap({ photo, photoObjects }: PhotoMapProps) {
   const handlePhotoClick = (event: any) => {
     const { width, height } = event.target;
     setPhotoSize({ width, height });
-
-    // TODO
-    // - move target box to center of clicked position
-    // - move target buttons under target box
     const { offsetX, offsetY } = event.nativeEvent;
     setTargetPosition({ x: offsetX, y: offsetY });
     setIsTargetVisible(true);
@@ -76,18 +102,33 @@ export function PhotoMap({ photo, photoObjects }: PhotoMapProps) {
     const timestampInMS = Date.now();
     const objectId = Number(event.target.dataset.photoObjectId);
     if (!Number.isInteger(objectId)) return;
-
-    // TODO
-    // - hide target box and target buttons
-    // - do nothing if clicked position's associated object has been found
-    // - send PATCH request to server with data
-    // - update game state with response from server
     setIsTargetVisible(false);
+    if (foundPhotoObjectIds.has(objectId)) return;
+
+    const scaledTargetPosition = scaleUpPosition({
+      x: targetPosition.x,
+      y: targetPosition.y,
+      width: photoSize.width,
+      height: photoSize.height,
+      originalWidth: originalPhotoSize.width,
+      originalHeight: originalPhotoSize.height,
+    });
+    const params = {
+      timestampInMS,
+      objectId,
+      targetX: scaledTargetPosition.x,
+      targetY: scaledTargetPosition.y,
+    };
+    updateGame(params).then((gameData) => {
+      if (Object.keys(gameData).length === 0) return;
+      setGame(gameData);
+      setFoundPhotoObjectIds(new Set(gameData.found_object_ids));
+    });
   };
 
   const targetList = photoObjects.map((photoObject) => {
     return (
-      <li key={photoObject.id}>
+      <li key={photoObject.id} className="shrink-0">
         <button
           data-photo-object-id={photoObject.id}
           className="bg-gray-200 w-full rounded-2xl py-0.5 px-4 text-xl"
@@ -99,18 +140,18 @@ export function PhotoMap({ photo, photoObjects }: PhotoMapProps) {
   });
 
   return (
-    <div className="relative w-full rounded-2xl mb-4 overflow-hidden">
+    <div className="relative w-full mb-4 ">
       <img
         src={photo.image_url}
         alt="A photo of the Where's Waldo map"
-        className=""
+        className="rounded-2xl overflow-hidden"
       />
       <span
         id="target-box"
-        className="absolute w-10 h-10 border-4 border-gray-800"
+        className="absolute w-[32px] h-[32px] border-[3px] border-gray-200 rounded-2xl shadow-md shadow-black"
         style={{
-          top: "246px",
-          left: "448px",
+          top: `${targetPosition.y - 16}px`,
+          left: `${targetPosition.x - 16}px`,
           visibility: `${isTargetVisible ? "visible" : "hidden"}`,
         }}
       ></span>
@@ -124,10 +165,10 @@ export function PhotoMap({ photo, photoObjects }: PhotoMapProps) {
       ></img>
       <ul
         id="target-box-options"
-        className="absolute flex flex-col gap-y-0.5 invisible"
+        className="absolute flex flex-col gap-y-0.5 invisible min-w-fit"
         style={{
-          top: "278px",
-          left: "385px",
+          top: `${targetPosition.y + 16}px`,
+          left: `${targetPosition.x - 80}px`,
           visibility: `${isTargetVisible ? "visible" : "hidden"}`,
         }}
         onClick={handleTargetClick}
