@@ -31,7 +31,6 @@ interface PhotoMapProps {
     image_url: string;
   }[];
   foundPhotoObjectIds: Set<number>;
-  setFoundPhotoObjectIds: React.Dispatch<any>;
   setGame: React.Dispatch<any>;
 }
 
@@ -39,7 +38,6 @@ export function PhotoMap({
   photo,
   photoObjects,
   foundPhotoObjectIds,
-  setFoundPhotoObjectIds,
   setGame,
 }: PhotoMapProps) {
   const [originalPhotoSize, setOriginalPhotoSize] = useState<any>({
@@ -122,7 +120,6 @@ export function PhotoMap({
     updateGame(params).then((gameData) => {
       if (Object.keys(gameData).length === 0) return;
       setGame(gameData);
-      setFoundPhotoObjectIds(new Set(gameData.found_object_ids));
     });
   };
 

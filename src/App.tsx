@@ -19,9 +19,6 @@ function App() {
   const [loadedTimestamp, setLoadedTimestamp] = useState(0);
   const [photoObjects, setPhotoObjects] = useState<any[]>([]);
   const [photo, setPhoto] = useState<any>({});
-  const [foundPhotoObjectIds, setFoundPhotoObjectIds] = useState(
-    new Set<number>()
-  );
   const [scores, setScores] = useState<any[]>([]);
 
   // Log the state as it changes
@@ -36,12 +33,10 @@ function App() {
       photoObjects,
       `\n> photo: \n`,
       photo,
-      `\n> foundPhotoObjectIds: \n`,
-      foundPhotoObjectIds,
       `\n> Scores: \n:`,
       scores
     );
-  }, [game, loadedTimestamp, photoObjects, photo, foundPhotoObjectIds, scores]);
+  }, [game, loadedTimestamp, photoObjects, photo, scores]);
 
   /*
     - Reset the game session
@@ -50,8 +45,8 @@ function App() {
   useEffect(() => {
     deleteGame().then(() => {
       createGame().then((gameData) => {
+        if (Object.keys(gameData).length === 0) return;
         setGame(gameData);
-        setFoundPhotoObjectIds(new Set(gameData.found_object_ids));
       });
     });
   }, []);
@@ -87,6 +82,10 @@ function App() {
     });
   }, [photoObjects, photo, loadedTimestamp]);
 
+  const foundPhotoObjectIds = new Set<number>(
+    Array.isArray(game.found_object_ids) ? game.found_object_ids : []
+  );
+
   return (
     <div className="min-h-screen">
       {/* container */}
@@ -104,7 +103,6 @@ function App() {
             photo,
             photoObjects,
             foundPhotoObjectIds,
-            setFoundPhotoObjectIds,
             setGame,
           }}
         />
