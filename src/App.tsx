@@ -22,7 +22,8 @@ function App() {
   const [photoObjects, setPhotoObjects] = useState<any[]>([]);
   const [photo, setPhoto] = useState<any>({});
   const [scores, setScores] = useState<any[]>([]);
-  const { start, stop, reset, elapsedTimeInMS } = useStopwatch();
+  const stopwatch = useStopwatch();
+  const { start, stop, reset, elapsedTimeInMS } = stopwatch;
 
   // Log the state as it changes
   useEffect(() => {
@@ -62,13 +63,16 @@ function App() {
     if (game.did_update_start === true) return;
 
     const ajaxCalls = [getPhotoObjects(), getPhoto(), getScores()];
-    Promise.all(ajaxCalls).then((responses) => {
-      const [photoObjects, photo, scores] = responses;
-      setPhotoObjects(photoObjects);
-      setPhoto(photo);
-      setScores(scores);
-      setLoadedTimestamp(Date.now());
-    });
+    Promise.all(ajaxCalls)
+      .then((responses) => {
+        const [photoObjects, photo, scores] = responses;
+        setPhotoObjects(photoObjects);
+        setPhoto(photo);
+        setScores(scores);
+      })
+      .then(() => {
+        setLoadedTimestamp(Date.now());
+      });
   }, [game]);
 
   /*
@@ -80,10 +84,28 @@ function App() {
     if (loadedTimestamp === 0) return;
 
     const startGameParams = { timestampInMS: loadedTimestamp };
-    startGame(startGameParams).then((gameData) => {
-      setGame(gameData);
-    });
+    startGame(startGameParams)
+      .then((gameData) => {
+        setGame(gameData);
+      })
+      .then(() => {
+        stopwatch.reset();
+        stopwatch.start();
+      });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [photoObjects, photo, loadedTimestamp]);
+
+  /*
+    - Stop the stopwatch after game is over
+    - TODO: Open the new score form after game is over
+    - Update
+  */
+  useEffect(() => {
+    if (Object.keys(photo).length === 0) return;
+    if (game.is_over !== true) return;
+
+    stopwatch.stop();
+  }, [game]);
 
   const foundPhotoObjectIds = new Set<number>(
     Array.isArray(game.found_object_ids) ? game.found_object_ids : []
@@ -114,6 +136,7 @@ function App() {
             photoObjects,
             foundPhotoObjectIds,
             setGame,
+            isGameOver: Boolean(game.is_over),
           }}
         />
         <ScoreForm />

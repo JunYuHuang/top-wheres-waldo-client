@@ -39,7 +39,7 @@ export default function Stopwatch({
               Stop
             </button>
             <button
-              onClick={(e) => reset()}
+              onClick={() => reset()}
               className="bg-gray-200 rounded-2xl py-0.5 px-4 text-xl"
             >
               Reset
