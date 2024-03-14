@@ -32,6 +32,7 @@ interface PhotoMapProps {
   }[];
   foundPhotoObjectIds: Set<number>;
   setGame: React.Dispatch<any>;
+  isGameOver: boolean;
 }
 
 export default function PhotoMap({
@@ -39,6 +40,7 @@ export default function PhotoMap({
   photoObjects,
   foundPhotoObjectIds,
   setGame,
+  isGameOver,
 }: PhotoMapProps) {
   const [originalPhotoSize, setOriginalPhotoSize] = useState<any>({
     width: 1,
@@ -89,6 +91,7 @@ export default function PhotoMap({
   };
 
   const handlePhotoClick = (event: any) => {
+    if (isGameOver) return;
     const { width, height } = event.target;
     setPhotoSize({ width, height });
     const { offsetX, offsetY } = event.nativeEvent;
@@ -97,6 +100,7 @@ export default function PhotoMap({
   };
 
   const handleTargetClick = (event: any) => {
+    if (isGameOver) return;
     const timestampInMS = Date.now();
     const objectId = Number(event.target.dataset.photoObjectId);
     if (!Number.isInteger(objectId)) return;
@@ -156,7 +160,9 @@ export default function PhotoMap({
         src={photo.image_url}
         alt="A photo of the Where's Waldo map"
         id="image"
-        className="absolute top-0 left-0 opacity-0 cursor-crosshair"
+        className={`absolute top-0 left-0 opacity-0 ${
+          isGameOver ? "cursor-not-allowed" : "cursor-crosshair"
+        }`}
         onLoad={handlePhotoLoad}
         onClick={handlePhotoClick}
       ></img>
