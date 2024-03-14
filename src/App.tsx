@@ -9,10 +9,12 @@ import {
   createGame,
   startGame,
 } from "./lib/serverAPILib";
+import useStopwatch from "./lib/useStopwatch";
 import { CharactersList } from "./components/CharactersList";
 import { PhotoMap } from "./components/PhotoMap";
 import { Scoreboard } from "./components/Scoreboard";
 import { ScoreForm } from "./components/ScoreForm";
+import { Stopwatch } from "./components/Stopwatch";
 
 function App() {
   const [game, setGame] = useState<any>({});
@@ -20,6 +22,7 @@ function App() {
   const [photoObjects, setPhotoObjects] = useState<any[]>([]);
   const [photo, setPhoto] = useState<any>({});
   const [scores, setScores] = useState<any[]>([]);
+  const { start, stop, reset, elapsedTimeInMS } = useStopwatch();
 
   // Log the state as it changes
   useEffect(() => {
@@ -96,8 +99,15 @@ function App() {
           Find and click on the missing characters in the photo!
         </p>
         <CharactersList {...{ photoObjects, foundPhotoObjectIds }} />
-        {/* stopwatch */}
-        {/* <div className="text-2xl mb-4">Time: 00:05</div> */}
+        <Stopwatch
+          {...{
+            shownElapsedTimeInMS: elapsedTimeInMS,
+            start,
+            stop,
+            reset,
+            isDebugMode: true,
+          }}
+        />
         <PhotoMap
           {...{
             photo,
