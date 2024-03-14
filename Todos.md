@@ -19,6 +19,7 @@
     - [x] Update AJAX calls to save and send cookie from server for HTTP requests that involve the game session
   - [ ] `stopwatchLib`
   - [ ] `utilsLib`
+    - [x] `formatDuration()`
 - [x] Create UI elements with dummy data and state
   - [x] `Header`
   - [x] `CharactersList`
@@ -37,6 +38,7 @@
     - [ ] Optional: Allow photo map to scale up beyond its original dimensions (need a `scaleDownPosition()` function)
   - [ ] `ScoreForm`
   - [x] `Scoreboard`
+    - [x] Display the run times in the format `HH:MM:SS.MS`
 - [ ] Test the app
 - [ ] Deploy to GitHub Pages
 - [ ] Optional: Create and update favicon
