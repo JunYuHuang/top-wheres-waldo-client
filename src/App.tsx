@@ -142,7 +142,6 @@ function App() {
             start,
             stop,
             reset,
-            isDebugMode: true,
           }}
         />
         <PhotoMap
@@ -161,7 +160,6 @@ function App() {
             runLengthInMS: elapsedTimeInMS,
             isGameOver: Boolean(game.is_over),
             setScores,
-            isDebugMode: true,
           }}
         />
         <Scoreboard {...{ scores }} />
