@@ -24,6 +24,7 @@ function App() {
   const [scores, setScores] = useState<any[]>([]);
   const stopwatch = useStopwatch();
   const { start, stop, reset, elapsedTimeInMS } = stopwatch;
+  const [isFormOpen, setIsFormOpen] = useState<boolean>(false);
 
   // Log the state as it changes
   useEffect(() => {
@@ -38,9 +39,11 @@ function App() {
       `\n> photo: \n`,
       photo,
       `\n> Scores: \n:`,
-      scores
+      scores,
+      `\n> isFormOpen: \n:`,
+      isFormOpen
     );
-  }, [game, loadedTimestamp, photoObjects, photo, scores]);
+  }, [game, loadedTimestamp, photoObjects, photo, scores, isFormOpen]);
 
   /*
     - Reset the game session
@@ -95,17 +98,14 @@ function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [photoObjects, photo, loadedTimestamp]);
 
-  /*
-    - Stop the stopwatch after game is over
-    - TODO: Open the new score form after game is over
-    - Update
-  */
+  // Handles post-game
   useEffect(() => {
-    if (Object.keys(photo).length === 0) return;
+    if (Object.keys(game).length === 0) return;
     if (game.is_over !== true) return;
 
     stopwatch.stop();
-  }, [game]);
+    setIsFormOpen(true);
+  }, [game, stopwatch]);
 
   const foundPhotoObjectIds = new Set<number>(
     Array.isArray(game.found_object_ids) ? game.found_object_ids : []
@@ -139,7 +139,21 @@ function App() {
             isGameOver: Boolean(game.is_over),
           }}
         />
-        <ScoreForm />
+        <ScoreForm
+          {...{
+            isOpen: isFormOpen,
+            openForm: () => {
+              setIsFormOpen(true);
+            },
+            closeForm: () => {
+              setIsFormOpen(false);
+            },
+            runLengthInMS: elapsedTimeInMS,
+            isGameOver: Boolean(game.is_over),
+            setScores,
+            isDebugMode: true,
+          }}
+        />
         <Scoreboard {...{ scores }} />
       </main>
     </div>
