@@ -28,19 +28,17 @@ export default function ScoreForm({
 }: ScoreFormProps) {
   const [playerName, setPlayerName] = useState<string>("");
   const [errorMessage, setErrorMessage] = useState<string>("");
+  const [statusMessage, setStatusMessage] = useState<string>("");
+  const [didSubmitScore, setDidSubmitScore] = useState<boolean>(false);
 
   const handlePlayerNameOnChange = (e: any) => {
     setPlayerName(e.target.value);
   };
 
-  const handleCancelClick = () => {
+  const handleCloseClick = () => {
     closeForm();
   };
 
-  /*
-  - TODO: fix bug where form cannot be closed after score is submitted
-  - TODO: prevent form from being spam submitted
-  */
   const handleFormSubmit = (e: any) => {
     e.preventDefault();
     if (!isGameOver) {
@@ -48,35 +46,49 @@ export default function ScoreForm({
       closeForm();
       return;
     }
+    if (didSubmitScore) {
+      setErrorMessage("✋ You already submitted your run.");
+      setStatusMessage("");
+      return;
+    }
     if (!isValidPlayerName(playerName)) {
       setErrorMessage(
-        `'${playerName}' is not a valid name. \nPlease try again.`
+        `'${playerName}' is not a valid name. \n😓 Please try again.`
       );
+      setStatusMessage("");
       return;
     }
 
     setErrorMessage("");
-    closeForm();
+    setDidSubmitScore(true);
     createScore(playerName)
       .then((scoreData) => {
         if (Object.keys(scoreData).length === 0)
-          throw new Error("Failed to submit score!");
-        console.log("Form submitted");
+          throw new Error("😡 Failed to submit score!");
+        console.log("✅ Form submitted");
+        setStatusMessage("✅ Run submitted!");
       })
       .then(() => {
         getScores()
           .then((scoresData) => {
             if (scoresData.length === 0)
-              throw new Error("Failed to fetch scores!");
+              throw new Error("😡 Failed to fetch scores!");
             setScores(scoresData);
+            console.log("✅ Fetched updated scores");
           })
           .catch((error) => {
-            console.error("Error fetching scores:\n", error);
+            console.error("😡 Error fetching scores:\n", error);
           });
       })
       .catch((error) => {
         console.error("Error submitting score:\n", error);
-        setErrorMessage("Error submitting run 🙁");
+        setErrorMessage("😓 Failed to submit run.");
+      })
+      .finally(() => {
+        setTimeout(() => {
+          closeForm();
+          console.log("✅ Closed score form");
+        }, 3000);
       });
   };
 
@@ -141,18 +153,30 @@ export default function ScoreForm({
             ) : (
               ""
             )}
+            {statusMessage.length > 0 ? (
+              <>
+                <p className="text-xl whitespace-pre text-green-900">
+                  {statusMessage}
+                </p>
+                <br />
+              </>
+            ) : (
+              ""
+            )}
             <div className="flex flex-row items-center justify-between gap-x-4">
               <button
                 type="button"
                 className="bg-gray-200 rounded-2xl py-0.5 px-4 text-xl shadow-sm shadow-gray-200 w-full"
-                id="cancel-button"
-                onClick={handleCancelClick}
+                id="close-button"
+                onClick={handleCloseClick}
               >
-                Cancel
+                Close
               </button>
               <button
                 type="submit"
-                className="bg-gray-200 rounded-2xl py-0.5 px-4 text-xl shadow-sm shadow-gray-200 w-full"
+                className={`bg-gray-200 rounded-2xl py-0.5 px-4 text-xl shadow-sm shadow-gray-200 w-full ${
+                  didSubmitScore ? "cursor-not-allowed" : ""
+                }`}
                 id="start-game-button"
               >
                 Submit

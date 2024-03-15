@@ -40,14 +40,13 @@
       - [ ] Target buttons' leftmost position should be in the same vertical (y) position as the target box's left border when the target box is in the left side of the photo
       - [ ] Target buttons' rightmost position should be in the same vertical (y) position as the target box's right border when the target box is in the right side of the photo
     - [ ] Optional: Allow photo map to scale up beyond its original dimensions (need a `scaleDownPosition()` function)
-  - [ ] `ScoreForm`
+  - [x] `ScoreForm`
   - [x] `Scoreboard`
     - [x] Display the run times in the format `HH:MM:SS.MS`
-- [ ] Fix bugs
+- [x] Fix bugs
   - [x] Fix bug with stopped elapsed time on client side not matching what the server recorded (client's time is always faster than server's time)
   - [x] Fix bug with score form modal not closing upon successful score submission
-- [ ] Do misc tasks
-  - [ ] Only score form to be submitted once (prevent multiple spam submissions for any completed game session)
+  - [x] Update score form to be submitted once per completed game session per player (i.e. prevent multiple spam submissions for any completed game session)
 - [ ] Test the app
 - [ ] Deploy to GitHub Pages
 - [ ] Optional: Create and update favicon
