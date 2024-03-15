@@ -47,6 +47,9 @@
   - [x] Fix bug with stopped elapsed time on client side not matching what the server recorded (client's time is always faster than server's time)
   - [x] Fix bug with score form modal not closing upon successful score submission
   - [x] Update score form to be submitted once per completed game session per player (i.e. prevent multiple spam submissions for any completed game session)
-- [ ] Test the app
 - [ ] Deploy to GitHub Pages
-- [ ] Optional: Create and update favicon
+  - [ ] Build the compiled app
+  - [ ] Make app work with environment variables instead of using hardcoded values
+  - [ ] Update `serverAPILib` so its server URL can be set to the ENV variable `SERVER_URL`
+- [ ] Test the app
+- [x] Optional: Create and update favicon
