@@ -10,7 +10,6 @@ function isValidPlayerName(name: string) {
 }
 
 interface ScoreFormProps {
-  isOpen: boolean;
   openForm: any;
   closeForm: any;
   runLengthInMS: number;
@@ -20,7 +19,6 @@ interface ScoreFormProps {
 }
 
 export default function ScoreForm({
-  isOpen,
   openForm,
   closeForm,
   runLengthInMS,
@@ -58,6 +56,7 @@ export default function ScoreForm({
     }
 
     setErrorMessage("");
+    closeForm();
     createScore(playerName)
       .then((scoreData) => {
         if (Object.keys(scoreData).length === 0)
@@ -70,7 +69,6 @@ export default function ScoreForm({
             if (scoresData.length === 0)
               throw new Error("Failed to fetch scores!");
             setScores(scoresData);
-            closeForm();
           })
           .catch((error) => {
             console.error("Error fetching scores:\n", error);
@@ -92,12 +90,6 @@ export default function ScoreForm({
           >
             Open Form
           </button>
-          <button
-            onClick={() => closeForm()}
-            className="bg-gray-200 rounded-2xl py-0.5 px-4 text-xl"
-          >
-            Close Form
-          </button>
         </div>
       ) : (
         ""
@@ -106,7 +98,6 @@ export default function ScoreForm({
       <dialog
         className="bg-gray-200/90 absolute w-full h-full top-0 left-0"
         id="score-dialog"
-        open={isOpen}
       >
         <div className="h-full flex flex-col items-center justify-center">
           <form
@@ -117,9 +108,9 @@ export default function ScoreForm({
             onSubmit={handleFormSubmit}
           >
             <h2 className="text-2xl font-bold">New Run</h2>
-            <p className="text-xl">Your beat the game!</p>
+            <p className="text-xl">You beat the game!</p>
             <p className="text-xl">
-              Your run time: {formatDuration(runLengthInMS)}
+              Your time: {formatDuration(runLengthInMS)}
             </p>
             <p className="text-xl">Please submit your run.</p>
             <br />
@@ -132,7 +123,7 @@ export default function ScoreForm({
                 type="text"
                 name="player-name"
                 id="player-name"
-                className="border-black border-2 rounded-2xl p-2 text-xl w-full"
+                className="bg-gray-200 rounded-2xl py-0.5 px-4 text-xl shadow-sm shadow-gray-200 w-full mt-1"
                 value={playerName}
                 onChange={handlePlayerNameOnChange}
                 required
@@ -153,7 +144,7 @@ export default function ScoreForm({
             <div className="flex flex-row items-center justify-between gap-x-4">
               <button
                 type="button"
-                className="border-black border-2 rounded-2xl p-2 w-full text-xl"
+                className="bg-gray-200 rounded-2xl py-0.5 px-4 text-xl shadow-sm shadow-gray-200 w-full"
                 id="cancel-button"
                 onClick={handleCancelClick}
               >
@@ -161,7 +152,7 @@ export default function ScoreForm({
               </button>
               <button
                 type="submit"
-                className="border-black border-2 rounded-2xl p-2 w-full text-xl"
+                className="bg-gray-200 rounded-2xl py-0.5 px-4 text-xl shadow-sm shadow-gray-200 w-full"
                 id="start-game-button"
               >
                 Submit

@@ -16,6 +16,22 @@ import Scoreboard from "./components/Scoreboard";
 import ScoreForm from "./components/ScoreForm";
 import Stopwatch from "./components/Stopwatch";
 
+function openScoreForm() {
+  const dialog: HTMLDialogElement | null =
+    document.querySelector("#score-dialog");
+  if (!dialog) return;
+  if (dialog.tagName !== "DIALOG") return;
+  dialog.showModal();
+}
+
+function closeScoreForm() {
+  const dialog: HTMLDialogElement | null =
+    document.querySelector("#score-dialog");
+  if (!dialog) return;
+  if (dialog.tagName !== "DIALOG") return;
+  dialog.close();
+}
+
 function App() {
   const [game, setGame] = useState<any>({});
   const [loadedTimestamp, setLoadedTimestamp] = useState(0);
@@ -24,7 +40,6 @@ function App() {
   const [scores, setScores] = useState<any[]>([]);
   const stopwatch = useStopwatch();
   const { start, stop, reset, elapsedTimeInMS } = stopwatch;
-  const [isFormOpen, setIsFormOpen] = useState<boolean>(false);
 
   // Log the state as it changes
   useEffect(() => {
@@ -39,11 +54,9 @@ function App() {
       `\n> photo: \n`,
       photo,
       `\n> Scores: \n:`,
-      scores,
-      `\n> isFormOpen: \n:`,
-      isFormOpen
+      scores
     );
-  }, [game, loadedTimestamp, photoObjects, photo, scores, isFormOpen]);
+  }, [game, loadedTimestamp, photoObjects, photo, scores]);
 
   /*
     - Reset the game session
@@ -99,12 +112,14 @@ function App() {
   }, [photoObjects, photo, loadedTimestamp]);
 
   // Handles post-game
+  // TODO - return if player already submitted score
   useEffect(() => {
     if (Object.keys(game).length === 0) return;
     if (game.is_over !== true) return;
+    if (game.end_in_ms === -1) return;
 
-    stopwatch.stop();
-    setIsFormOpen(true);
+    stopwatch.stop(game.end_in_ms - game.start_in_ms);
+    openScoreForm();
   }, [game, stopwatch]);
 
   const foundPhotoObjectIds = new Set<number>(
@@ -141,13 +156,8 @@ function App() {
         />
         <ScoreForm
           {...{
-            isOpen: isFormOpen,
-            openForm: () => {
-              setIsFormOpen(true);
-            },
-            closeForm: () => {
-              setIsFormOpen(false);
-            },
+            openForm: openScoreForm,
+            closeForm: closeScoreForm,
             runLengthInMS: elapsedTimeInMS,
             isGameOver: Boolean(game.is_over),
             setScores,

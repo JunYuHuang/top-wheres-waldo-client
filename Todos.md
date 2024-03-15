@@ -43,6 +43,11 @@
   - [ ] `ScoreForm`
   - [x] `Scoreboard`
     - [x] Display the run times in the format `HH:MM:SS.MS`
+- [ ] Fix bugs
+  - [x] Fix bug with stopped elapsed time on client side not matching what the server recorded (client's time is always faster than server's time)
+  - [ ] Fix bug with score form modal not closing upon successful score submission
+- [ ] Do misc tasks
+  - [ ] Only score form to be submitted once (prevent multiple spam submissions for any completed game session)
 - [ ] Test the app
 - [ ] Deploy to GitHub Pages
 - [ ] Optional: Create and update favicon

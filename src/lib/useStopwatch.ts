@@ -23,11 +23,11 @@ export default function useStopwatch(args = DEFAULT_ARGS) {
     intervalIdRef.current = intervalId;
   }
 
-  function stop() {
+  function stop(endTimeInMS?: number) {
     if (!isRunningRef.current) return;
-
-    isRunningRef.current = false;
     clearInterval(intervalIdRef.current);
+    isRunningRef.current = false;
+    if (endTimeInMS) setElapsedTimeInMS(endTimeInMS);
   }
 
   function reset(startTimeInMS = Date.now()) {

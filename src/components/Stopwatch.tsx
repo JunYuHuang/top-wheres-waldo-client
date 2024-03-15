@@ -33,7 +33,7 @@ export default function Stopwatch({
               Start
             </button>
             <button
-              onClick={stop}
+              onClick={() => stop()}
               className="bg-gray-200 rounded-2xl py-0.5 px-4 text-xl"
             >
               Stop
