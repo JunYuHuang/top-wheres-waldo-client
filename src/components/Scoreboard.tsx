@@ -19,9 +19,8 @@ export default function Scoreboard({ scores }: ScoreboardProps) {
     );
   });
 
-  return (
-    <div className="">
-      <h2 className="text-2xl">Fastest Runs</h2>
+  const scoreTable = () => {
+    return (
       <table className="table-auto border-spacing-1">
         <thead>
           <tr>
@@ -31,6 +30,17 @@ export default function Scoreboard({ scores }: ScoreboardProps) {
         </thead>
         <tbody>{scoreRows}</tbody>
       </table>
+    );
+  };
+
+  return (
+    <div className="">
+      <h2 className="text-2xl">Fastest Runs</h2>
+      {scores.length > 0 ? (
+        scoreTable()
+      ) : (
+        <p className="text-xl text-left py-1">No runs yet.</p>
+      )}
     </div>
   );
 }
