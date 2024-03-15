@@ -111,8 +111,7 @@ function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [photoObjects, photo, loadedTimestamp]);
 
-  // Handles post-game
-  // TODO - return if player already submitted score
+  // Handles post-game score submission
   useEffect(() => {
     if (Object.keys(game).length === 0) return;
     if (game.is_over !== true) return;
@@ -120,7 +119,8 @@ function App() {
 
     stopwatch.stop(game.end_in_ms - game.start_in_ms);
     openScoreForm();
-  }, [game, stopwatch]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [game]);
 
   const foundPhotoObjectIds = new Set<number>(
     Array.isArray(game.found_object_ids) ? game.found_object_ids : []
