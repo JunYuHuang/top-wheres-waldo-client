@@ -6,7 +6,7 @@
 - [x] Config library dependencies
   - [x] Tailwind
   - [x] Luxon
-- [ ] Create in-house libraries
+- [x] Create in-house libraries
   - [x] `serverAPILib`
     - [x] `getPhotoObjects()`
     - [x] `getPhoto()`
@@ -17,7 +17,7 @@
     - [x] `updateGame()`
     - [x] `deleteGame()`
     - [x] Update AJAX calls to save and send cookie from server for HTTP requests that involve the game session
-  - [ ] `utilsLib`
+  - [x] `utilsLib`
     - [x] `formatDuration()`
   - [x] `useStopwatch` React hook
     - [x] `start()`
@@ -34,7 +34,7 @@
 - [ ] Add functionality to UI elements with real data and state
   - [x] `Header`
   - [x] `CharactersList`
-  - [ ] `Stopwatch`
+  - [x] `Stopwatch`
   - [x] `PhotoMap`
     - [ ] Optional: Dynamically position the list of target buttons so that they are never visually off-screen
       - [ ] Target buttons' leftmost position should be in the same vertical (y) position as the target box's left border when the target box is in the left side of the photo
