@@ -7,17 +7,13 @@ interface StopwatchProps {
   start: any;
   stop: any;
   reset: any;
-  isDebugMode: boolean;
+  isDebugMode?: boolean;
 }
 
-export default function Stopwatch({
-  shownElapsedTimeInMS,
-  start,
-  stop,
-  reset,
-  isDebugMode,
-}: StopwatchProps) {
-  if (isDebugMode) {
+export default function Stopwatch(props: StopwatchProps) {
+  const { shownElapsedTimeInMS, start, stop, reset } = props;
+
+  if (props.isDebugMode === true) {
     return (
       <div className="mb-4">
         <div className="text-2xl">
