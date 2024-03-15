@@ -11,6 +11,8 @@ export default function CharactersList({
   photoObjects,
   foundPhotoObjectIds,
 }: CharactersListProps) {
+  const missingObjectsCount = photoObjects.length - foundPhotoObjectIds.size;
+
   const photoObjectList = photoObjects.map((photoObject) => {
     return (
       <li
@@ -36,7 +38,10 @@ export default function CharactersList({
 
   return (
     <div className="mb-4">
-      <h2 className="text-2xl mb-4">Missing Character(s):</h2>
+      <h2 className="text-2xl mb-4">
+        {`${missingObjectsCount}\n`}
+        Missing Character{missingObjectsCount === 1 ? "" : "s"}:
+      </h2>
       <ul className="flex flex-col gap-y-3">{photoObjectList}</ul>
     </div>
   );
