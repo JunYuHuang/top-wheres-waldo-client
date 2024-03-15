@@ -15,17 +15,12 @@ interface ScoreFormProps {
   runLengthInMS: number;
   isGameOver: boolean;
   setScores: React.Dispatch<any>;
-  isDebugMode: boolean;
+  isDebugMode?: boolean;
 }
 
-export default function ScoreForm({
-  openForm,
-  closeForm,
-  runLengthInMS,
-  isGameOver,
-  setScores,
-  isDebugMode,
-}: ScoreFormProps) {
+export default function ScoreForm(props: ScoreFormProps) {
+  const { openForm, closeForm, runLengthInMS, isGameOver, setScores } = props;
+
   const [playerName, setPlayerName] = useState<string>("");
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [statusMessage, setStatusMessage] = useState<string>("");
@@ -94,7 +89,7 @@ export default function ScoreForm({
 
   return (
     <>
-      {isDebugMode ? (
+      {props.isDebugMode === true ? (
         <div className="flex flex-row items-center gap-x-1 mb-4">
           <button
             onClick={() => openForm()}
