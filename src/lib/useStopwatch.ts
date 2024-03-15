@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState, useRef } from "react";
 
 const DEFAULT_ARGS = {

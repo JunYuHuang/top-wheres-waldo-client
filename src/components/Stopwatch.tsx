@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unused-vars */
+
 import { formatDuration } from "../lib/utilsLib";
 
 interface StopwatchProps {
