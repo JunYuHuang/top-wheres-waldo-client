@@ -49,7 +49,7 @@
   - [x] Update score form to be submitted once per completed game session per player (i.e. prevent multiple spam submissions for any completed game session)
 - [ ] Deploy to GitHub Pages
   - [x] Make app work with environment variables instead of using hardcoded values
-  - [x] Update `serverAPILib` so its server URL can be set to the
-  - [ ] Build the compiled app ENV variable `SERVER_URL`
+  - [x] Update `serverAPILib` so its server URL can be set to the ENV variable `SERVER_URL`
+  - [ ] Optional: Set up a GH Action pipe to deploy to the production branch from branch `main`
 - [ ] Test the app
 - [x] Optional: Create and update favicon
