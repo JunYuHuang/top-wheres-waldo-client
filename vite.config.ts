@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from "tailwindcss";
@@ -10,5 +11,5 @@ export default defineConfig({
       plugins: [tailwindcss()],
     }
   },
-  base: "/top-wheres-waldo-client"
+  base: "/top-wheres-waldo-client/"
 })
