@@ -106,7 +106,7 @@ function App() {
       })
       .then(() => {
         stopwatch.reset();
-        // stopwatch.start();
+        stopwatch.start();
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [photoObjects, photo, loadedTimestamp]);
