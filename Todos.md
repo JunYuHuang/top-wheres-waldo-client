@@ -48,8 +48,8 @@
   - [x] Fix bug with score form modal not closing upon successful score submission
   - [x] Update score form to be submitted once per completed game session per player (i.e. prevent multiple spam submissions for any completed game session)
 - [ ] Deploy to GitHub Pages
-  - [ ] Build the compiled app
-  - [ ] Make app work with environment variables instead of using hardcoded values
-  - [ ] Update `serverAPILib` so its server URL can be set to the ENV variable `SERVER_URL`
+  - [x] Make app work with environment variables instead of using hardcoded values
+  - [x] Update `serverAPILib` so its server URL can be set to the
+  - [ ] Build the compiled app ENV variable `SERVER_URL`
 - [ ] Test the app
 - [x] Optional: Create and update favicon
