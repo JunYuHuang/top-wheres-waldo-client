@@ -10,7 +10,7 @@ export default function useStopwatch(args = DEFAULT_ARGS) {
   const isRunningRef = useRef<boolean>(false);
   const startTimeRef = useRef<number>(startTimeInMS);
   const [elapsedTimeInMS, setElapsedTimeInMS] = useState<number>(0);
-  const intervalIdRef = useRef<number>(0);
+  const intervalIdRef = useRef<number | NodeJS.Timeout>(0);
 
   function start() {
     if (isRunningRef.current) return;
