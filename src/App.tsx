@@ -63,6 +63,7 @@ function App() {
     - Create a new game session
   */
   useEffect(() => {
+    console.log(`✅ Connected to server '${import.meta.env.VITE_SERVER_URL}'`);
     deleteGame().then(() => {
       createGame().then((gameData) => {
         if (Object.keys(gameData).length === 0) return;
